@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>浅拷贝</title>
+</head>
+<body>
+    所谓深浅拷贝，都是进行复制，那么区别主要在于复制出来的新对象和原来的对象是否会互相影响，改一个，另一个也会变。
+    <script>
+        var a = ["a","b","c"];
+        var b = a;
+        console.log(a === b);//true
+        b[0]="f";
+        console.log(a);//["f", "b", "c"]
+        console.log(b);//["f", "b", "c"]
+
+        // Array的 slice 和 concat 方法 并不是 真正的深拷贝，他们其实是披着羊（qian）皮（kao）的（bei）狼。
+        //第一层是深拷贝
+        var a = [1,2,3];
+        var b = a.slice(); //slice
+        console.log(b === a);//false
+        a[0] = 4;
+        console.log(a);//[4, 2, 3]
+        console.log(b);//[1, 2, 3]
+
+        var a = [1,2,3];
+        var b = a.concat();  //concat
+        console.log(b === a);//false
+        a[0] = 4;
+        console.log(a);//[4, 2, 3]
+        console.log(b);//[1, 2, 3]
+
+        //内层是浅拷贝
+        var a = [[1,2,3],4,5];
+        var b = a.slice();
+        console.log(a === b);//false
+        a[0][0] = 6;
+        console.log(a);//[[6,2,3],4,5]-------------------
+        console.log(b);//[[6,2,3],4,5]-------------------
+    </script>
+   
+</body>
+</html>
